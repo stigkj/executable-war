@@ -26,7 +26,7 @@ import org.apache.maven.plugin.war.WarMojo;
 /**
  * Build an executable WAR file.
  *
- * @author <a href="from.executable-war@apache.org">Stig Kleppe-Jørgensen</a>
+ * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-Jørgensen</a>
  * @version $Id: $
  * @goal executable-war
  * @phase package
