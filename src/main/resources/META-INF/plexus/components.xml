@@ -23,17 +23,5 @@
         </lifecycles>
       </configuration>
     </component>
-    <component>
-      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
-      <role-hint>war</role-hint>
-      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
-      <configuration>
-        <extension>war</extension>
-        <type>executable-war</type>
-        <packaging>war</packaging>
-        <language>java</language>
-        <addedToClasspath>true</addedToClasspath>
-      </configuration>
-    </component>
   </components>
 </component-set>
