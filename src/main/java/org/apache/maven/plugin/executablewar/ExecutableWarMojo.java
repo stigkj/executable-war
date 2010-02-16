@@ -28,7 +28,7 @@ import org.apache.maven.plugin.war.WarMojo;
  *
  * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-Jørgensen</a>
  * @version $Id: $
- * @goal executable-war
+ * @goal war
  * @phase package
  * @requiresDependencyResolution runtime
  */
