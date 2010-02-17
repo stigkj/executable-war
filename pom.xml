@@ -23,6 +23,7 @@
 	</prerequisites>
 
 	<modules>
+		<module>maven-executable-war-library</module>
 		<module>maven-executable-war-plugin</module>
 	</modules>
 	
