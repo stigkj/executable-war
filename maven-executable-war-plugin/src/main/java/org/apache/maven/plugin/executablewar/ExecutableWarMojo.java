@@ -106,7 +106,7 @@ public class ExecutableWarMojo extends AbstractMojo {
 				configuration(
 						element(name("archive"),
 								element(name("manifest"),
-										element(name("mainClass"), "Main")
+										element(name("mainClass"), "org.apache.maven.plugins.executablewar.Main")
 								)
 						)
 				),
@@ -123,8 +123,8 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private void extractExecWarHeader() {
 		final Artifact artifact = Iterables.find(pluginArtifacts, new Predicate<Artifact>() {
 			public boolean apply(Artifact input) {
-				return input.getGroupId().equals("org.jvnet.hudson") &&
-						input.getArtifactId().equals("executable-war");
+				return input.getGroupId().equals("org.apache.maven.plugins") &&
+						input.getArtifactId().equals("maven-executable-war-library");
 			}
 		});
 		final File artifactFile = artifact.getFile();
