@@ -3,13 +3,13 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.maven.its.it0016</groupId>
-  <artifactId>maven-it-it0016</artifactId>
+  <groupId>org.apache.maven.plugin.executablewar.its</groupId>
+  <artifactId>executable-war-it-default</artifactId>
   <version>1.0</version>
   <packaging>executable-war</packaging>
 
-  <name>Maven Integration Test :: it0016</name> 
-  <description>Test a WAR generation</description>
+  <name>Executable war integration test</name> 
+  <description>Test that the generation of an executable war has the correct content</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
