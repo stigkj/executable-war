@@ -228,7 +228,7 @@ public class Main {
         // There is no portable way to find where the locally cached copy
         // of hudson.war/jar is; JDK 6 is too smart. (See HUDSON-2326.)
         try {
-            URL classFile = Main.class.getClassLoader().getResource("Main.class");
+	        URL classFile = Main.class.getClassLoader().getResource(mainClassAsResourceString());
             JarFile jf = ((JarURLConnection) classFile.openConnection()).getJarFile();
             Field f = ZipFile.class.getDeclaredField("name");
             f.setAccessible(true);
@@ -252,7 +252,11 @@ public class Main {
         return myself;
     }
 
-    private static void copyStream(InputStream in, OutputStream out) throws IOException {
+	private static String mainClassAsResourceString() {
+		return Main.class.getName().replace(".", "/") + ".class";
+	}
+
+	private static void copyStream(InputStream in, OutputStream out) throws IOException {
         byte[] buf = new byte[8192];
         int len;
         while((len=in.read(buf))>0)
