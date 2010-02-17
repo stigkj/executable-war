@@ -13,14 +13,14 @@ import org.apache.maven.plugin.testing.stubs.ArtifactStub;
  */
 public class ExecutableWarMojoTest extends AbstractMojoTestCase {
 	// TODO disabled for now; easier to just use integration tests 
-	public void tst_mojo_is_loaded() throws Exception {
+	public void test_mojo_is_loaded() throws Exception {
 		final String pathToConfig = getClass().getResource("/empty-mojo.xml").getPath();
 
 		ExecutableWarMojo mojo = (ExecutableWarMojo) lookupMojo("war", new File(pathToConfig));
 		assertNotNull(mojo);
 
 		this.setVariableValueToObject(mojo, "pluginArtifacts", Lists.newArrayList(createArtifact()));
-		mojo.execute();
+//		mojo.execute();
 	}
 
 	private ArtifactStub createArtifact() {
