@@ -135,12 +135,22 @@ public class ExecutableWarMojo extends AbstractMojo {
 
 			final File outputDir = new File(outputDirectory, warName);
 			outputDir.mkdirs();
+			unArchiver.setFileSelectors(new FileSelector[]{new IsClassFileSelector()});
 			unArchiver.setDestDirectory(outputDir);
 			unArchiver.extract();
 		} catch (NoSuchArchiverException e) {
 			throw new IllegalStateException("Could not get unarchiver for " + artifactFile, e);
 		} catch (ArchiverException e) {
 			throw new IllegalStateException("Could not extract " + artifactFile, e);
+		}
+	}
+
+	/**
+	 * Selects only class files
+	 */
+	private static class IsClassFileSelector implements FileSelector {
+		public boolean isSelected(FileInfo fileInfo) throws IOException {
+			return fileInfo.isFile() && fileInfo.getName().endsWith(".class");
 		}
 	}
 }
