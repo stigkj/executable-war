@@ -1,4 +1,4 @@
-package org.apache.maven.it0016;
+package org.apache.maven.plugin.executablewar.its.def;
 
 public class Person
 {
