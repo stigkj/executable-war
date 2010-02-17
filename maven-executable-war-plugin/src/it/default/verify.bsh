@@ -5,7 +5,7 @@ import java.util.regex.*;
 
 try
 {
-    File explodedDir = new File( basedir, "target/maven-it-it0016-1.0" );
+    File explodedDir = new File( basedir, "target/executable-war-it-default-1.0" );
     System.out.println( "Checking for existence of exploded directory " + explodedDir );
 
     if ( !explodedDir.isDirectory() )
@@ -30,8 +30,9 @@ try
         }
     }
 
-    /*File warFile = new File( basedir, "target/maven-it-it0016-1.0.war" );
+    File warFile = new File( basedir, "target/executable-war-it-default-1.0.war" );
     System.out.println( "Checking for existence of " + warFile );
+    
     if ( !warFile.isFile() )
     {
         System.out.println( "FAILURE!" );
@@ -54,7 +55,7 @@ try
         }
     }
 
-    war.close(); */
+    war.close();
 }
 catch( Throwable t )
 {
