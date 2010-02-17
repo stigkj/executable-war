@@ -27,16 +27,19 @@
 		<module>maven-executable-war-plugin</module>
 	</modules>
 	
+<!-- TODO Setup for github
 	<scm>
-		<connection>scm:svn:http://svn.apache.org/repos/asf/maven/plugins/trunk/maven-war-plugin/</connection>
-		<developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/plugins/trunk/maven-war-plugin/
-		</developerConnection>
-		<url>http://svn.apache.org/viewvc/maven/plugins/trunk/maven-war-plugin/</url>
+		<connection></connection>
+		<developerConnection></developerConnection>
+		<url></url>
 	</scm>
+-->
+<!-- TODO does github have issue management?
 	<issueManagement>
 		<system>JIRA</system>
-		<url>http://jira.codehaus.org/browse/MWAR</url>
+		<url>http://jira.codehaus.org/browse/?</url>
 	</issueManagement>
+-->
 
 	<properties>
 		<mavenVersion>2.0.6</mavenVersion>
