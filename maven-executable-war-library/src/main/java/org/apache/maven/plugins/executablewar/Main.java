@@ -32,6 +32,7 @@ import java.util.zip.ZipFile;
  * <tt>java -jar hudson.war</tt>.
  *
  * @author Kohsuke Kawaguchi
+ * TODO improve class name
  */
 public class Main {
     private static boolean hasLogOption(String[] args) {
