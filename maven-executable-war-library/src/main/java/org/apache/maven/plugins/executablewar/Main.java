@@ -47,7 +47,7 @@ public class Main {
      */
     private static Map/*<String,String>*/ parseDependencyVersions() throws IOException {
         Map r = new HashMap();
-        BufferedReader in = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("WEB-INF/classes/dependencies.txt")));
+        BufferedReader in = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/plugin.deps")));
         String line;
         while ((line=in.readLine())!=null) {
             line = line.trim();

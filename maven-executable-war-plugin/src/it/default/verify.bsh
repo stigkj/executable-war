@@ -15,7 +15,8 @@ try
     }
 
     String[] expectedPaths = {
-            "org/apache/maven/plugins/executablewar/Main.class"
+            "org/apache/maven/plugins/executablewar/Main.class",
+            "plugin.deps"
     };
 
     for ( String path : expectedPaths )
@@ -42,9 +43,10 @@ try
     JarFile war = new JarFile( warFile );
 
     String[] includedEntries = {
-        "WEB-INF/classes/org/apache/maven/it0016/Person.class",
-        "WEB-INF/lib/commons-logging-1.0.3.jar",
+            "org/apache/maven/plugins/executablewar/Main.class",
+            "plugin.deps"
     };
+
     for ( String included : includedEntries )
     {
         System.out.println( "Checking for existence of " + included );

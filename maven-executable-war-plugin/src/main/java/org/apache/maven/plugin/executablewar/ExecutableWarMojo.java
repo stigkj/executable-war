@@ -1,6 +1,8 @@
 package org.apache.maven.plugin.executablewar;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import com.google.common.base.Predicate;
@@ -16,6 +18,8 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
+import org.codehaus.plexus.components.io.fileselectors.FileInfo;
+import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 
 import static org.twdata.maven.mojoexecutor.MojoExecutor.artifactId;
 import static org.twdata.maven.mojoexecutor.MojoExecutor.configuration;
@@ -70,7 +74,7 @@ public class ExecutableWarMojo extends AbstractMojo {
 	 * @parameter expression="${project.build.directory}"
 	 * @required
 	 */
-	private String outputDirectory;
+	private String buildDirectory;
 
 	/**
 	 * To look up Archiver/UnArchiver implementations
@@ -95,7 +99,9 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private String warName;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		extractExecWarHeader();
+		final File extractedWarDirectory = new File(buildDirectory, warName);
+		extractExecWarHeader(extractedWarDirectory);
+		outputAllDependencies(extractedWarDirectory);
 		executeMojo(
 				plugin(
 						groupId("org.apache.maven.plugins"),
@@ -116,11 +122,9 @@ public class ExecutableWarMojo extends AbstractMojo {
 						pluginManager
 				)
 		);
-
-		System.out.println("RUNNING");
 	}
 
-	private void extractExecWarHeader() {
+	private void extractExecWarHeader(final File outputDir) {
 		final Artifact artifact = Iterables.find(pluginArtifacts, new Predicate<Artifact>() {
 			public boolean apply(Artifact input) {
 				return input.getGroupId().equals("org.apache.maven.plugins") &&
@@ -133,7 +137,6 @@ public class ExecutableWarMojo extends AbstractMojo {
 			final UnArchiver unArchiver = archiverManager.getUnArchiver(artifactFile);
 			unArchiver.setSourceFile(artifactFile);
 
-			final File outputDir = new File(outputDirectory, warName);
 			outputDir.mkdirs();
 			unArchiver.setFileSelectors(new FileSelector[]{new IsClassFileSelector()});
 			unArchiver.setDestDirectory(outputDir);
@@ -143,6 +146,28 @@ public class ExecutableWarMojo extends AbstractMojo {
 		} catch (ArchiverException e) {
 			throw new IllegalStateException("Could not extract " + artifactFile, e);
 		}
+	}
+
+	private void outputAllDependencies(File extractedWarDirectory) throws MojoExecutionException {
+		PrintWriter writer;
+
+		try {
+			writer = new PrintWriter(new File(extractedWarDirectory, "plugin.deps"));
+		} catch (IOException e) {
+			throw new MojoExecutionException("Could not create file", e);
+		}
+
+		for (Artifact pluginArtifact : pluginArtifacts) {
+			writer.println(
+					pluginArtifact.getGroupId() + ":" +
+					pluginArtifact.getArtifactId() + ":" +
+					pluginArtifact.getType() + ":" +
+					pluginArtifact.getVersion() + ":" +
+					pluginArtifact.getScope()
+			);
+		}
+
+		writer.close();
 	}
 
 	/**
