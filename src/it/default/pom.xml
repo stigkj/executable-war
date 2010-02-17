@@ -22,22 +22,17 @@
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.3</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.2</version>
-      <scope>test</scope>
-    </dependency>
 	  <dependency>
 		  <groupId>org.apache.maven.shared</groupId>
 		  <artifactId>maven-verifier</artifactId>
 		  <version>1.2</version>
 	  </dependency>
+	  <dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.7</version>
+	    <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
