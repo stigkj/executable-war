@@ -15,7 +15,7 @@ try
     }
 
     String[] expectedPaths = {
-            "Main.class"
+            "org/apache/maven/plugins/executablewar/Main.class"
     };
 
     for ( String path : expectedPaths )
