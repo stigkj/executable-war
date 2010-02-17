@@ -7,6 +7,7 @@ try
 {
     File explodedDir = new File( basedir, "target/maven-it-it0016-1.0" );
     System.out.println( "Checking for existence of exploded directory " + explodedDir );
+
     if ( !explodedDir.isDirectory() )
     {
         System.out.println( "FAILURE!" );
@@ -14,14 +15,14 @@ try
     }
 
     String[] expectedPaths = {
-            "index.html", 
-            "WEB-INF/classes/org/apache/maven/it0016/Person.class", 
-            "WEB-INF/lib/commons-logging-1.0.3.jar", 
+            "Main.class"
     };
+
     for ( String path : expectedPaths )
     {
         File file = new File( explodedDir, path );
         System.out.println( "Checking for existence of " + file );
+        
         if ( !file.exists() )
         {
             System.out.println( "FAILURE!" );
@@ -29,21 +30,7 @@ try
         }
     }
 
-    String[] unexpectedPaths = {
-            "WEB-INF/lib/servlet-api-2.4.jar", 
-    };
-    for ( String path : unexpectedPaths )
-    {
-        File file = new File( explodedDir, path );
-        System.out.println( "Checking for absence of " + file );
-        if ( file.exists() )
-        {
-            System.out.println( "FAILURE!" );
-            return false;
-        }
-    }
-
-    File warFile = new File( basedir, "target/maven-it-it0016-1.0.war" );
+    /*File warFile = new File( basedir, "target/maven-it-it0016-1.0.war" );
     System.out.println( "Checking for existence of " + warFile );
     if ( !warFile.isFile() )
     {
@@ -67,7 +54,7 @@ try
         }
     }
 
-    war.close();
+    war.close(); */
 }
 catch( Throwable t )
 {
