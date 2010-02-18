@@ -136,7 +136,8 @@ public class Main {
             arguments.add("--webroot="+new File(getHomeDir(),"war"));
 
         // override the usage screen
-        Field usage = launcher.getField("USAGE");
+//        Field usage = launcher.getField("USAGE");
+/*
         usage.set(null,"Hudson Continuous Integration Engine "+getVersion()+"\n" +
                 "Usage: java -jar hudson.war [--option=value] [--option=value]\n" +
                 "\n" +
@@ -185,6 +186,7 @@ public class Main {
                 "   --accessLoggerClassName        = Set the access logger class to use for user authentication. Defaults to disabled\n" +
                 "   --simpleAccessLogger.format    = The log format to use. Supports combined/common/resin/custom (SimpleAccessLogger only)\n" +
                 "   --simpleAccessLogger.file      = The location pattern for the log file(SimpleAccessLogger only)");
+*/
 
         if(arguments.contains("--version")) {
             System.out.println(getVersion());
