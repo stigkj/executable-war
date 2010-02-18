@@ -1,28 +1,24 @@
 package org.apache.maven.plugins.executablewar;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.naming.Context;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.List;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.zip.ZipFile;
@@ -42,32 +38,15 @@ public class Main {
         return false;
     }
 
-    /**
-     * Reads <tt>WEB-INF/classes/dependencies.txt and builds "groupId:artifactId" -> "version" map.
-     */
-    private static Map/*<String,String>*/ parseDependencyVersions() throws IOException {
-        Map r = new HashMap();
-        BufferedReader in = new BufferedReader(new InputStreamReader(Main.class.getResourceAsStream("/plugin.deps")));
-        String line;
-        while ((line=in.readLine())!=null) {
-            line = line.trim();
-            String[] tokens = line.split(":");
-            if (tokens.length!=5)   continue;   // there should be 5 tuples group:artifact:type:version:scope
-            r.put(tokens[0]+":"+tokens[1],tokens[3]);
-        }
-        return r;
-    }
-
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
         // if we need to daemonize, do it first
         for (int i = 0; i < args.length; i++) {
             if(args[i].startsWith("--daemon")) {
-                Map revisions = parseDependencyVersions();
 
-                // load the daemonization code
+	            // load the daemonization code
                 ClassLoader cl = new URLClassLoader(new URL[]{
-                    extractFromJar("WEB-INF/lib/jna-"+revisions.get("net.java.dev.jna:jna")+".jar","jna","jar").toURI().toURL(),
-                    extractFromJar("WEB-INF/lib/akuma-"+revisions.get("com.sun.akuma:akuma")+".jar","akuma","jar").toURI().toURL(),
+                    extractFromJar("/jna.jar","jna","jar").toURI().toURL(),
+                    extractFromJar("/akuma.jar","akuma","jar").toURI().toURL(),
                 });
                 Class $daemon = cl.loadClass("com.sun.akuma.Daemon");
                 Object daemon = $daemon.newInstance();
@@ -113,7 +92,7 @@ public class Main {
         System.setProperty("executable-war",me.getAbsolutePath());  // remember the location so that we can access it from within webapp
 
         // put winstone jar in a file system so that we can load jars from there
-        File tmpJar = extractFromJar("winstone.jar","winstone","jar");
+        File tmpJar = extractFromJar("/winstone.jar","winstone","jar");
 
         // clean up any previously extracted copy, since
         // winstone doesn't do so and that causes problems when newer version of Hudson

@@ -16,7 +16,9 @@ try
 
     String[] expectedPaths = {
             "org/apache/maven/plugins/executablewar/Main.class",
-            "plugin.deps"
+            "winstone.jar",
+            "akuma.jar",
+            "jna.jar"
     };
 
     for ( String path : expectedPaths )
@@ -44,7 +46,9 @@ try
 
     String[] includedEntries = {
             "org/apache/maven/plugins/executablewar/Main.class",
-            "plugin.deps"
+            "winstone.jar",
+            "akuma.jar",
+            "jna.jar"
     };
 
     for ( String included : includedEntries )
