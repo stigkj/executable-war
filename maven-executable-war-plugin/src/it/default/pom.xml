@@ -6,7 +6,7 @@
   <groupId>org.apache.maven.plugin.executablewar.its</groupId>
   <artifactId>executable-war-it-default</artifactId>
   <version>1.0</version>
-  <packaging>executable-war</packaging>
+  <packaging>war</packaging>
 
   <name>Executable war integration test</name> 
   <description>Test that the generation of an executable war has the correct content</description>
@@ -41,7 +41,13 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-executable-war-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
-	      <extensions>true</extensions>
+	      <executions>
+		      <execution>
+			      <goals>
+				      <goal>add-exec-resources</goal>
+			      </goals>
+		      </execution>
+	      </executions>
       </plugin>
     </plugins>
   </build>
