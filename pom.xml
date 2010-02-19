@@ -1,10 +1,9 @@
-<?xml version='1.0' encoding='UTF-8'?>
-
+<?xml version='1.0' encoding='ISO-8859-1'?>
 <project xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
          xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'
          xmlns='http://maven.apache.org/POM/4.0.0'>
 	<modelVersion>4.0.0</modelVersion>
-
+	
 	<parent>
 		<artifactId>maven-plugins</artifactId>
 		<groupId>org.apache.maven.plugins</groupId>
@@ -17,12 +16,37 @@
 
 	<name>Maven executable WAR Plugin</name>
 	<description>Builds a Web Application Archive (WAR) file from the project output and its dependencies.</description>
-	<!-- TODO use github wiki url? <url>http://maven.apache.org</url>-->
+	<url>http://wiki.github.com/stigkj/maven-executable-war-plugin</url>
 
 	<prerequisites>
 		<maven>2.0.6</maven>
 	</prerequisites>
-
+	<inceptionYear>2010</inceptionYear>
+	<licenses>
+		<license>
+			<name>Apache</name>
+			<url>http://wwww.apache.org</url>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>stigkj</id>
+			<name>Stig Kleppe-Jørgensen</name>
+			<email>from.maven-executable-war-plugin@nisgits.net</email>
+			<url>http://www.nisgits.net</url>
+			<organization>NOS Clearing ASA</organization>
+			<organizationUrl>http://www.nosclearing.com</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-1</timezone>
+			<properties>
+				<gtalk>stigkj@gmail.com</gtalk>
+				<skype>stig_kleppejorgensen</skype>
+				<msn>stigjoe@hotmail.com</msn>
+			</properties>
+		</developer>
+	</developers>
 	<modules>
 		<module>maven-executable-war-library</module>
 		<module>maven-executable-war-plugin</module>
@@ -54,13 +78,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>mojo-executor-repository</id>
-			<name>Mojo Executor Repository for Maven</name>
-			<url>http://twdata-m2-repository.googlecode.com/svn/</url>
-		</repository>
-	</repositories>
 	<build>
 		<plugins>
 			<plugin>
