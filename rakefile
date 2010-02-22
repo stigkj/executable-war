@@ -1,0 +1,5 @@
+task :default => [:run_maven]
+
+task :run_maven do
+  sh "mvn clean package"
+end
