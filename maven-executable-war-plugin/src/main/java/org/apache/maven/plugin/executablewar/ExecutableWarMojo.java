@@ -99,6 +99,8 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private Map<String, Artifact> idToArtifact;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		verifyCorrectPackaging(project.getPackaging());
+
 		idToArtifact = mapIdToArtifact();
 		final File expandedWarDirectory = new File(buildDirectory, warName);
 
@@ -106,8 +108,14 @@ public class ExecutableWarMojo extends AbstractMojo {
 		copyDependenciesTo(expandedWarDirectory);
 	}
 
+	private void verifyCorrectPackaging(final String packaging) throws MojoFailureException {
+		if (!packaging.equals("war")) {
+			throw new MojoFailureException(
+					"Can only be run within a project with 'war' packaging, that is, when building a web application");
+		}
+	}
+
 	private Map<String, Artifact> mapIdToArtifact() {
-		System.out.println("pluginArtifacts = " + pluginArtifacts);
 		return Maps.uniqueIndex(pluginArtifacts, new Function<Artifact, String>() {
 			public String apply(Artifact from) {
 				return from.getGroupId() + ":" + from.getArtifactId();
