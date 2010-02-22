@@ -23,26 +23,17 @@ import org.codehaus.plexus.components.io.fileselectors.FileInfo;
 import org.codehaus.plexus.components.io.fileselectors.FileSelector;
 import org.codehaus.plexus.util.FileUtils;
 
-import static org.twdata.maven.mojoexecutor.MojoExecutor.artifactId;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.configuration;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.element;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.executeMojo;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.executionEnvironment;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.goal;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.groupId;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.name;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.plugin;
-import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
-
 /**
  * Build an executable WAR file.
  *
  * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-Jørgensen</a>
  * @version $Id: $
- * @goal war
- * @phase package
- * @requiresDependencyResolution runtime
  * TODO make a JDK v1.4 version too with that maven plugin
+ * TODO need to check if we are in a war packaging and only run then...or?? What about other war-packaging variants
+ * TODO improve name of goal
+ *
+ * @goal add-exec-resources
+ * @phase process-resources
  */
 public class ExecutableWarMojo extends AbstractMojo {
 	/**
@@ -108,36 +99,23 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private Map<String, Artifact> idToArtifact;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		verifyCorrectPackaging(project.getPackaging());
+
 		idToArtifact = mapIdToArtifact();
 		final File expandedWarDirectory = new File(buildDirectory, warName);
 
 		extractExecWarClassesTo(expandedWarDirectory);
 		copyDependenciesTo(expandedWarDirectory);
+	}
 
-		executeMojo(
-				plugin(
-						groupId("org.apache.maven.plugins"),
-						artifactId("maven-war-plugin"),
-						version("2.1-beta-1")
-				),
-				goal("war"),
-				configuration(
-						element(name("archive"),
-								element(name("manifest"),
-										element(name("mainClass"), "org.apache.maven.plugins.executablewar.Main")
-								)
-						)
-				),
-				executionEnvironment(
-						project,
-						session,
-						pluginManager
-				)
-		);
+	private void verifyCorrectPackaging(final String packaging) throws MojoFailureException {
+		if (!packaging.equals("war")) {
+			throw new MojoFailureException(
+					"Can only be run within a project with 'war' packaging, that is, when building a web application");
+		}
 	}
 
 	private Map<String, Artifact> mapIdToArtifact() {
-		System.out.println("pluginArtifacts = " + pluginArtifacts);
 		return Maps.uniqueIndex(pluginArtifacts, new Function<Artifact, String>() {
 			public String apply(Artifact from) {
 				return from.getGroupId() + ":" + from.getArtifactId();

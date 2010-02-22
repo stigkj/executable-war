@@ -3,13 +3,8 @@
          xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'
          xmlns='http://maven.apache.org/POM/4.0.0'>
 	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<artifactId>maven-plugins</artifactId>
-		<groupId>org.apache.maven.plugins</groupId>
-		<version>14</version>
-	</parent>
 
+	<groupId>org.apache.maven.plugins</groupId>
 	<artifactId>maven-executable-war</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -51,20 +46,18 @@
 		<module>maven-executable-war-library</module>
 		<module>maven-executable-war-plugin</module>
 	</modules>
-	
-<!-- TODO Setup for github
-	<scm>
-		<connection></connection>
-		<developerConnection></developerConnection>
-		<url></url>
-	</scm>
--->
-<!-- TODO does github have issue management?
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://jira.codehaus.org/browse/?</url>
-	</issueManagement>
--->
+
+	 <scm>
+		 <connection>scm:git:git://github.com/stigkj/maven-executable-war-plugin.git</connection>
+		 <developerConnection>scm:git:git@github.com:stigkj/maven-executable-war-plugin.git</developerConnection>
+		 <url>http://github.com/stigkj/maven-executable-war-plugin</url>
+	 </scm>
+	<!-- TODO does github have issue management?                                                                                                                     l
+	 <issueManagement>
+		 <system>JIRA</system>
+		 <url>http://jira.codehaus.org/browse/?</url>
+	 </issueManagement>
+ -->
 
 	<properties>
 		<mavenVersion>2.0.6</mavenVersion>
