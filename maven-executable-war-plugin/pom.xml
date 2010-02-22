@@ -10,17 +10,21 @@
 -->
 
 	<parent>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-executable-war</artifactId>
+		<groupId>net.nisgits.executable-war</groupId>
+		<artifactId>executable-war</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>maven-executable-war-plugin</artifactId>
-	<name>maven-executable-war-plugin</name>
+	<name>Maven executable WAR Plugin</name>
+	<description>
+		Adds support files to a web application that makes it possible to run it from the command line in addition to
+		being deployed to a container.
+	</description>
 	<packaging>maven-plugin</packaging>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-executable-war-library</artifactId>
+			<groupId>net.nisgits.executable-war</groupId>
+			<artifactId>executable-war-library</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
