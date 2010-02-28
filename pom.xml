@@ -55,7 +55,7 @@
 		 <developerConnection>scm:git:git@github.com:stigkj/maven-executable-war-plugin.git</developerConnection>
 		 <url>http://github.com/stigkj/maven-executable-war-plugin</url>
 	 </scm>
-	<!-- TODO does github have issue management?                                                                                                                     l
+	<!-- TODO does github have issue management?
 	 <issueManagement>
 		 <system>JIRA</system>
 		 <url>http://jira.codehaus.org/browse/?</url>
@@ -89,4 +89,32 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+    <profile>
+      <id>release-sign-artifacts</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
