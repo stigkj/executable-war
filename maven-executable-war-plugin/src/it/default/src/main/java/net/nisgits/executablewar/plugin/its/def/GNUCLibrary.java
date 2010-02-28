@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package org.apache.maven.plugin.executablewar.its.def;
+package net.nisgits.executablewar.plugin.its.def;
 
 import com.sun.jna.Library;
 import com.sun.jna.StringArray;

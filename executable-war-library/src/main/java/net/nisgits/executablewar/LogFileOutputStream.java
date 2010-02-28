@@ -1,4 +1,4 @@
-package org.apache.maven.plugins.executablewar;
+package net.nisgits.executablewar;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package org.apache.maven.plugin.executablewar.its;
+package net.nisgits.executablewar.plugin.its;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class ExecutableWarMojoIt {
          * makes it easy to do this.
          */
         verifier = new Verifier( testDir.getAbsolutePath() );
-//        verifier.deleteArtifact( "org.apache.maven.plugins", "maven-executable-war-plugin", "1.0-SNAPSHOT", "jar" );
+//        verifier.deleteArtifact( "org.apache.maven.plugins", "maven-executable-war-executablewar", "1.0-SNAPSHOT", "jar" );
 
         /*
          * The Command Line Options (CLI) are passed to the

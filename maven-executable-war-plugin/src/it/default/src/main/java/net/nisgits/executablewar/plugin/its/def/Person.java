@@ -1,4 +1,4 @@
-package org.apache.maven.plugin.executablewar.its.def;
+package net.nisgits.executablewar.plugin.its.def;
 
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,7 +10,7 @@ import java.io.IOException;
 import com.sun.akuma.Daemon;
 import com.sun.akuma.JavaVMArguments;
 
-import static org.apache.maven.plugin.executablewar.its.def.GNUCLibrary.*;
+import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.*;
 
 public class Person implements javax.servlet.Filter
 {

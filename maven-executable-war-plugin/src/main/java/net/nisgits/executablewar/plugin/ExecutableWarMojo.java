@@ -1,4 +1,4 @@
-package org.apache.maven.plugin.executablewar;
+package net.nisgits.executablewar.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,7 +28,7 @@ import org.codehaus.plexus.util.FileUtils;
  *
  * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-Jørgensen</a>
  * @version $Id: $
- * TODO make a JDK v1.4 version too with that maven plugin
+ * TODO make a JDK v1.4 version too with that maven executablewar
  * TODO need to check if we are in a war packaging and only run then...or?? What about other war-packaging variants
  * TODO improve name of goal
  *
@@ -78,9 +78,9 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private ArchiverManager archiverManager;
 
 	/**
-	 * The dependencies declared in your plugin.
+	 * The dependencies declared in your executablewar.
 	 *
-	 * @parameter default-value="${plugin.artifacts}"
+	 * @parameter default-value="${executablewar.artifacts}"
 	 */
 	private List<Artifact> pluginArtifacts;
 
