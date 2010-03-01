@@ -1,8 +1,5 @@
 package net.nisgits.executablewar;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,12 +13,17 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.zip.ZipFile;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import static java.util.Arrays.asList;
 
 /**
  * Launcher class for stand-alone execution of Hudson as
@@ -29,6 +31,8 @@ import java.util.zip.ZipFile;
  *
  * @author Kohsuke Kawaguchi
  * TODO improve class name
+ * TODO use args4j to interpret command line arguments
+ * TODO Add our options to output from Winstone's --help
  */
 public class Main {
     private static boolean hasLogOption(String[] args) {
@@ -73,17 +77,18 @@ public class Main {
                 System.setOut(ps);
                 System.setErr(ps);
                 // don't let winstone see this
-                List _args = new ArrayList(Arrays.asList(args));
+                List _args = new ArrayList(asList(args));
                 _args.remove(i);
                 args = (String[]) _args.toArray(new String[_args.size()]);
                 break;
             }
         }
 
-        // this is so that JFreeChart can work nicely even if we are launched as a daemon
+        // this is so that anything using AWT/Swing, like JFreeChart, can work nicely even if we are launched as a daemon
         System.setProperty("java.awt.headless","true");
 
         // tell Hudson that Winstone doesn't support chunked encoding.
+		// TODO how to handle properties like these, support a callback
         if(System.getProperty("hudson.diyChunking")==null)
             System.setProperty("hudson.diyChunking","true");
 
@@ -95,26 +100,30 @@ public class Main {
         File tmpJar = extractFromJar("/winstone.jar","winstone","jar");
 
         // clean up any previously extracted copy, since
-        // winstone doesn't do so and that causes problems when newer version of Hudson
-        // is deployed.
+        // winstone doesn't do so and that causes problems when newer version of the same web app is deployed.
         File tempFile = File.createTempFile("dummy", "dummy");
         deleteContents(new File(tempFile.getParent(), "winstone/" + me.getName()));
         tempFile.delete();
 
         // locate the Winstone launcher
-        ClassLoader cl = new URLClassLoader(new URL[]{tmpJar.toURI().toURL()});
-        Class launcher = cl.loadClass("winstone.Launcher");
-        Method mainMethod = launcher.getMethod("main", new Class[]{String[].class});
+        final ClassLoader cl = new URLClassLoader(new URL[]{tmpJar.toURI().toURL()});
+        final Class<?> launcher = cl.loadClass("winstone.Launcher");
+        final Method mainMethod = launcher.getMethod("main", new Class[]{String[].class});
 
         // figure out the arguments
-        List arguments = new ArrayList(Arrays.asList(args));
+        final List<String> arguments = new ArrayList<String>(asList(args));
         arguments.add(0,"--warfile="+ me.getAbsolutePath());
-        if(!hasWebRoot(arguments))
+
+        if(!hasWebRoot(arguments)) {
             // defaults to ~/.hudson/war since many users reported that cron job attempts to clean up
             // the contents in the temporary directory.
             arguments.add("--webroot="+new File(getHomeDir(),"war"));
+        }
 
         // override the usage screen
+		// TODO handle this, does not work with a standard winstone build, look at Kohsuke's build
+		// TODO use name from pom as header of usage
+		// TODO have options for the Maven plugin that sets 
 //        Field usage = launcher.getField("USAGE");
 /*
         usage.set(null,"Hudson Continuous Integration Engine "+getVersion()+"\n" +
@@ -178,6 +187,7 @@ public class Main {
 
     /**
      * Figures out the version from the manifest.
+     * TODO how to handle this? pr. default this is the Maven version, I think, do we need more options?
      */
     private static String getVersion() throws IOException {
         URL res = Main.class.getResource("/META-INF/MANIFEST.MF");
