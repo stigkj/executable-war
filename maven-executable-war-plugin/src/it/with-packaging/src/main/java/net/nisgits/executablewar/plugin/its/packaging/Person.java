@@ -1,4 +1,4 @@
-package net.nisgits.executablewar.plugin.its.def;
+package net.nisgits.executablewar.plugin.its.packaging;
 
 public class Person
 {
