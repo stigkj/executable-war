@@ -5,7 +5,7 @@
 	<display-name>Test</display-name>
 	<filter>
 		<filter-name>person</filter-name>
-		<filter-class>net.nisgits.executablewar.its.def.Person</filter-class>
+		<filter-class>net.nisgits.executablewar.plugin.its.def.RestartWebappFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>person</filter-name>

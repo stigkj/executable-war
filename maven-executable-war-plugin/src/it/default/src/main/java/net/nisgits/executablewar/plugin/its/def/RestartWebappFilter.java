@@ -16,20 +16,8 @@ import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.F_GETFD;
 import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.F_SETFD;
 import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.LIBC;
 
-public class Person implements javax.servlet.Filter
+public class RestartWebappFilter implements javax.servlet.Filter
 {
-    private String name;
-    
-    public void setName( String name )
-    {
-        this.name = name;
-    }
-    
-    public String getName()
-    {
-        return name;
-    }
-
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("############## STARTING UP - 1new");
 
@@ -63,6 +51,6 @@ public class Person implements javax.servlet.Filter
 	}
 
 	public void destroy() {
-		// FIXME implement method
+		// Does nothing here yet
 	}
 }
