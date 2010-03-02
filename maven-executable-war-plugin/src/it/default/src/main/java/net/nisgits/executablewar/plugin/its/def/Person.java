@@ -1,16 +1,20 @@
 package net.nisgits.executablewar.plugin.its.def;
 
+import java.io.IOException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import java.io.IOException;
 
 import com.sun.akuma.Daemon;
 import com.sun.akuma.JavaVMArguments;
 
-import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.*;
+import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.FD_CLOEXEC;
+import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.F_GETFD;
+import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.F_SETFD;
+import static net.nisgits.executablewar.plugin.its.def.GNUCLibrary.LIBC;
 
 public class Person implements javax.servlet.Filter
 {
@@ -26,13 +30,11 @@ public class Person implements javax.servlet.Filter
         return name;
     }
 
-	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		System.out.println("############## STARTING UP - 1new");
 
 	}
 
-	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 		System.out.println("############## RESTART PROCESS - 1new");
 /*
@@ -60,7 +62,6 @@ public class Person implements javax.servlet.Filter
 		throw new IllegalStateException("Could not restart process");
 	}
 
-	@Override
 	public void destroy() {
 		// FIXME implement method
 	}
