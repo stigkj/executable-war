@@ -1,27 +1,8 @@
 package net.nisgits.executablewar.plugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Maps;
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.PluginManager;
-import org.apache.maven.project.MavenProject;
-import org.codehaus.plexus.archiver.ArchiverException;
-import org.codehaus.plexus.archiver.UnArchiver;
-import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
-import org.codehaus.plexus.components.io.fileselectors.FileInfo;
-import org.codehaus.plexus.components.io.fileselectors.FileSelector;
-import org.codehaus.plexus.util.FileUtils;
 
 import static org.twdata.maven.mojoexecutor.MojoExecutor.artifactId;
 import static org.twdata.maven.mojoexecutor.MojoExecutor.configuration;
@@ -45,27 +26,17 @@ import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
  * @phase package
  * @requiresDependencyResolution runtime
  */
-public class ExecutableWarMojoInPackaging extends AbstractMojo {
+public class ExecutableWarMojoInPackaging extends ExecutableWarMojoCommon {
 	/**
-	 * The Maven Project Object
-	 *
-	 * @parameter expression="${project}"
-	 * @required
-	 * @readonly
-	 */
-	private MavenProject project;
-
-	/**
-	 * The Maven Session Object
+	 * The Maven Session object
 	 *
 	 * @parameter expression="${session}"
 	 * @required
 	 * @readonly
 	 */
 	private MavenSession session;
-
 	/**
-	 * The Maven PluginManager Object
+	 * The Maven PluginManager object
 	 *
 	 * @component
 	 * @required
@@ -73,50 +44,13 @@ public class ExecutableWarMojoInPackaging extends AbstractMojo {
 	private PluginManager pluginManager;
 
 	/**
-	 * The directory for the generated WAR.
+	 * Executes the standard war plugin after extracting the helper classes and libraries into the root directory of
+	 * where the war is built. This means these classes and libraries will be included in the war file at its root
+	 * level.
 	 *
-	 * @parameter expression="${project.build.directory}"
-	 * @required
+	 * @throws MojoExecutionException
 	 */
-	private String buildDirectory;
-
-	/**
-	 * To look up Archiver/UnArchiver implementations
-	 *
-	 * @component
-	 */
-	private ArchiverManager archiverManager;
-
-	/**
-	 * The dependencies declared in your executablewar.
-	 *
-	 * @parameter default-value="${executablewar.artifacts}"
-	 */
-	private List<Artifact> pluginArtifacts;
-
-	/**
-	 * The name of the generated WAR.
-	 *
-	 * @parameter expression="${project.build.finalName}"
-	 * @required
-	 */
-	private String warName;
-
-	/**
-	 * Maps "groupId:artifactId" to the corresponding artifact.
-	 * Built from pluginArtifacts.
-	 */
-	private Map<String, Artifact> idToArtifact;
-
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		verifyCorrectPackaging(project.getPackaging());
-
-		idToArtifact = mapIdToArtifact();
-		final File expandedWarDirectory = new File(buildDirectory, warName);
-
-		extractExecWarClassesTo(expandedWarDirectory);
-		copyDependenciesTo(expandedWarDirectory);
-
+	protected void extraSteps() throws MojoExecutionException {
 		executeMojo(
 				plugin(
 						groupId("org.apache.maven.plugins"),
@@ -139,67 +73,8 @@ public class ExecutableWarMojoInPackaging extends AbstractMojo {
 		);
 	}
 
-	private void verifyCorrectPackaging(final String packaging) throws MojoFailureException {
-		if (!packaging.equals("executable-war")) {
-			throw new MojoFailureException(
-					"Can only be run within a project with 'executable-war' packaging, that is, when building an executable web application");
-		}
-	}
-
-	private Map<String, Artifact> mapIdToArtifact() {
-		return Maps.uniqueIndex(pluginArtifacts, new Function<Artifact, String>() {
-			public String apply(Artifact from) {
-				return from.getGroupId() + ":" + from.getArtifactId();
-			}
-		});
-	}
-
-	private void extractExecWarClassesTo(final File expandedWarDirectory) {
-		final Artifact artifact = idToArtifact.get("org.apache.maven.plugins:maven-executable-war-library");
-		final File artifactFile = artifact.getFile();
-
-		try {
-			final UnArchiver unArchiver = archiverManager.getUnArchiver(artifactFile);
-			unArchiver.setSourceFile(artifactFile);
-
-			expandedWarDirectory.mkdirs();
-			unArchiver.setFileSelectors(new FileSelector[]{new IsClassFileSelector()});
-			unArchiver.setDestDirectory(expandedWarDirectory);
-			unArchiver.extract();
-		} catch (NoSuchArchiverException e) {
-			throw new IllegalStateException("Could not get unarchiver for " + artifactFile, e);
-		} catch (ArchiverException e) {
-			throw new IllegalStateException("Could not extract " + artifactFile, e);
-		}
-	}
-
-	private void copyDependenciesTo(File expandedWarDirectory) throws MojoExecutionException {
-		copyArtifactByIdToDirectory("net.java.dev.jna:jna", expandedWarDirectory);
-		copyArtifactByIdToDirectory("com.sun.akuma:akuma", expandedWarDirectory);
-		copyArtifactByIdToDirectory("net.sourceforge.winstone:winstone", expandedWarDirectory);
-	}
-
-	private void copyArtifactByIdToDirectory(final String id, File expandedWarDirectory) throws MojoExecutionException {
-		final Artifact artifact = idToArtifact.get(id);
-		copyArtifactToDirectory(artifact, expandedWarDirectory);
-	}
-
-	private void copyArtifactToDirectory(Artifact artifact, File expandedWarDirectory) throws MojoExecutionException {
-		try {
-			FileUtils.copyFile(artifact.getFile(), new File(expandedWarDirectory, artifact.getArtifactId() + ".jar"));
-		} catch (FileNotFoundException e) {
-			throw new MojoExecutionException("Could not find file for artifact", e);
-		} catch (IOException e) {
-			throw new MojoExecutionException("Problems copying artifact", e);
-		}
-	}
-
-	/**
-	 * Selects only class files
-	 */
-	private static class IsClassFileSelector implements FileSelector {
-		public boolean isSelected(FileInfo fileInfo) throws IOException {
-			return fileInfo.isFile() && fileInfo.getName().endsWith(".class");
-		}
+	@Override
+	protected String correctPackaging() {
+		return "executable-war";
 	}
 }
