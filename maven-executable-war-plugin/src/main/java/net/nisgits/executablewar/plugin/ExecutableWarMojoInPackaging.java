@@ -43,6 +43,7 @@ import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
  *
  * @goal war
  * @phase package
+ * @requiresDependencyResolution runtime
  */
 public class ExecutableWarMojoInPackaging extends AbstractMojo {
 	/**
