@@ -1,5 +1,8 @@
 package net.nisgits.executablewar.plugin;
 
+import java.io.File;
+
+import com.google.common.collect.Lists;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 import org.apache.maven.plugin.testing.stubs.ArtifactStub;
 
@@ -8,16 +11,16 @@ import org.apache.maven.plugin.testing.stubs.ArtifactStub;
  *
  * @author Stig Kleppe-Jorgensen, 2010.02.16
  */
-public class ExecutableWarMojoTest extends AbstractMojoTestCase {
-	// TODO disabled for now; easier to just use integration tests 
+// TODO disabled for now; easier to just use integration tests
+public class ExecutableWarMojoTst extends AbstractMojoTestCase {
 	public void test_mojo_is_loaded() throws Exception {
 		final String pathToConfig = getClass().getResource("/empty-mojo.xml").getPath();
 
-//		ExecutableWarMojo mojo = (ExecutableWarMojo) lookupMojo("war", new File(pathToConfig));
-//		assertNotNull(mojo);
-//
-//		this.setVariableValueToObject(mojo, "pluginArtifacts", Lists.newArrayList(createArtifact()));
-//		mojo.execute();
+		ExecutableWarMojo mojo = (ExecutableWarMojo) lookupMojo("war", new File(pathToConfig));
+		assertNotNull(mojo);
+
+		this.setVariableValueToObject(mojo, "pluginArtifacts", Lists.newArrayList(createArtifact()));
+		mojo.execute();
 	}
 
 	private ArtifactStub createArtifact() {
