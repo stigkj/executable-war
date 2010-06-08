@@ -17,4 +17,4 @@ The Wiki
 ========
 The [wiki][] probably has the answers to any other questions you may have.
 
-[wiki]:http://wiki.github.com/stigkj/maven-executable-war-plugin
+[wiki]:http://wiki.github.com/stigkj/executable-war
