@@ -56,10 +56,10 @@
     <developerConnection>scm:git:git@github.com:stigkj/executable-war.git</developerConnection>
     <url>http://github.com/stigkj/executable-war</url>
   </scm>
-    <issueManagement>
-      <system>GitHub</system>
-      <url>http://github.com/stigkj/executable-war/issues</url>
-    </issueManagement>
+  <issueManagement>
+    <system>GitHub</system>
+    <url>http://github.com/stigkj/executable-war/issues</url>
+  </issueManagement>
 
   <properties>
     <mavenVersion>2.0.6</mavenVersion>
