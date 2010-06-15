@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>net.nisgits.executablewar</groupId>
-    <artifactId>maven-executable-war</artifactId>
+    <artifactId>executable-war</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
   <artifactId>maven-executable-war-plugin</artifactId>
@@ -12,7 +12,7 @@
   <dependencies>
     <dependency>
       <groupId>net.nisgits.executablewar</groupId>
-      <artifactId>maven-executable-war-library</artifactId>
+      <artifactId>executable-war-library</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>

@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.nisgits.executablewar</groupId>
-  <artifactId>maven-executable-war</artifactId>
+  <artifactId>executable-war</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
