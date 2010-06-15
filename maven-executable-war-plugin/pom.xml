@@ -7,7 +7,11 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
   <artifactId>maven-executable-war-plugin</artifactId>
-  <name>maven-executable-war-plugin</name>
+  <name>Maven executable WAR Plugin</name>
+  <description>
+    Adds support files to a web application that makes it possible to run it from the command line in addition to
+    being deployed to a container.
+  </description>
   <packaging>maven-plugin</packaging>
   <dependencies>
     <dependency>
