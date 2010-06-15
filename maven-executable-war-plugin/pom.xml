@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.nisgits.executablewar</groupId>
     <artifactId>executable-war</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
   </parent>
   <artifactId>maven-executable-war-plugin</artifactId>
   <name>Maven executable WAR Plugin</name>
