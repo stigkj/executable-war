@@ -146,7 +146,7 @@ public class ExecutableWarMojo extends AbstractMojo {
 	}
 
 	private void extractExecWarClassesTo(final File expandedWarDirectory) {
-		final Artifact artifact = idToArtifact.get("org.apache.maven.plugins:maven-executable-war-library");
+		final Artifact artifact = idToArtifact.get("net.nisgits.executablewar:maven-executable-war-library");
 		final File artifactFile = artifact.getFile();
 
 		try {

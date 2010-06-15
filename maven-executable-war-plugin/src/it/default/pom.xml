@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project>
   <modelVersion>4.0.0</modelVersion>
 
@@ -8,7 +7,7 @@
   <version>1.0</version>
   <packaging>executable-war</packaging>
 
-  <name>Executable war integration test</name> 
+  <name>Executable war integration test</name>
   <description>Test that the generation of an executable war has the correct content</description>
 
   <properties>
@@ -22,26 +21,26 @@
       <version>2.4</version>
       <scope>provided</scope>
     </dependency>
-	  <dependency>
-		  <groupId>org.apache.maven.shared</groupId>
-		  <artifactId>maven-verifier</artifactId>
-		  <version>1.2</version>
-	  </dependency>
-	  <dependency>
-	    <groupId>junit</groupId>
-	    <artifactId>junit</artifactId>
-	    <version>4.7</version>
-	    <scope>test</scope>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-verifier</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
+        <groupId>net.nisgits.executablewar</groupId>
         <artifactId>maven-executable-war-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
-	      <extensions>true</extensions>
+        <version>0.1-SNAPSHOT</version>
+        <extensions>true</extensions>
       </plugin>
     </plugins>
   </build>
