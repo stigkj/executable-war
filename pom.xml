@@ -47,19 +47,16 @@
     <module>maven-executable-war-plugin</module>
   </modules>
 
-  <!-- TODO Setup for github
-    <scm>
-      <connection></connection>
-      <developerConnection></developerConnection>
-      <url></url>
-    </scm>
-  -->
-  <!-- TODO does github have issue management?
+  <scm>
+    <!-- TODO look at http://weblogs.java.net/blog/fabriziogiudici/archive/2009/10/29/fixing-two-problems-maven-mercurial-hudson -->
+    <connection>scm:git:git://github.com/stigkj/executable-war.git</connection>
+    <developerConnection>scm:git:git@github.com:stigkj/executable-war.git</developerConnection>
+    <url>http://github.com/stigkj/executable-war</url>
+  </scm>
     <issueManagement>
-      <system>JIRA</system>
-      <url>http://jira.codehaus.org/browse/?</url>
+      <system>GitHub</system>
+      <url>http://github.com/stigkj/executable-war/issues</url>
     </issueManagement>
-  -->
 
   <properties>
     <mavenVersion>2.0.6</mavenVersion>
