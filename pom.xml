@@ -2,90 +2,90 @@
 <project xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
          xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd'
          xmlns='http://maven.apache.org/POM/4.0.0'>
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.nisgits.executablewar</groupId>
-	<artifactId>maven-executable-war</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <groupId>net.nisgits.executablewar</groupId>
+  <artifactId>maven-executable-war</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-	<name>Maven executable WAR Plugin</name>
-	<description>Builds a Web Application Archive (WAR) file from the project output and its dependencies.</description>
-	<url>http://wiki.github.com/stigkj/maven-executable-war-plugin</url>
+  <name>Maven executable WAR Plugin</name>
+  <description>Builds a Web Application Archive (WAR) file from the project output and its dependencies.</description>
+  <url>http://wiki.github.com/stigkj/maven-executable-war-plugin</url>
 
-	<prerequisites>
-		<maven>2.0.6</maven>
-	</prerequisites>
-	<inceptionYear>2010</inceptionYear>
-	<licenses>
-		<license>
-			<name>Apache</name>
-			<url>http://wwww.apache.org</url>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>stigkj</id>
-			<name>Stig Kleppe-Jørgensen</name>
-			<email>from.maven-executable-war-plugin@nisgits.net</email>
-			<url>http://www.nisgits.net</url>
-			<organization>NOS Clearing ASA</organization>
-			<organizationUrl>http://www.nosclearing.com</organizationUrl>
-			<roles>
-				<role>developer</role>
-			</roles>
-			<timezone>-1</timezone>
-			<properties>
-				<gtalk>stigkj@gmail.com</gtalk>
-				<skype>stig_kleppejorgensen</skype>
-				<msn>stigjoe@hotmail.com</msn>
-			</properties>
-		</developer>
-	</developers>
-	<modules>
-		<module>maven-executable-war-library</module>
-		<module>maven-executable-war-plugin</module>
-	</modules>
-	
-<!-- TODO Setup for github
-	<scm>
-		<connection></connection>
-		<developerConnection></developerConnection>
-		<url></url>
-	</scm>
--->
-<!-- TODO does github have issue management?
-	<issueManagement>
-		<system>JIRA</system>
-		<url>http://jira.codehaus.org/browse/?</url>
-	</issueManagement>
--->
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
+  <inceptionYear>2010</inceptionYear>
+  <licenses>
+    <license>
+      <name>Apache</name>
+      <url>http://wwww.apache.org</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>stigkj</id>
+      <name>Stig Kleppe-Jørgensen</name>
+      <email>from.maven-executable-war-plugin@nisgits.net</email>
+      <url>http://www.nisgits.net</url>
+      <organization>NOS Clearing ASA</organization>
+      <organizationUrl>http://www.nosclearing.com</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-1</timezone>
+      <properties>
+        <gtalk>stigkj@gmail.com</gtalk>
+        <skype>stig_kleppejorgensen</skype>
+        <msn>stigjoe@hotmail.com</msn>
+      </properties>
+    </developer>
+  </developers>
+  <modules>
+    <module>maven-executable-war-library</module>
+    <module>maven-executable-war-plugin</module>
+  </modules>
 
-	<properties>
-		<mavenVersion>2.0.6</mavenVersion>
-	</properties>
+  <!-- TODO Setup for github
+    <scm>
+      <connection></connection>
+      <developerConnection></developerConnection>
+      <url></url>
+    </scm>
+  -->
+  <!-- TODO does github have issue management?
+    <issueManagement>
+      <system>JIRA</system>
+      <url>http://jira.codehaus.org/browse/?</url>
+    </issueManagement>
+  -->
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0.2</version>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  <properties>
+    <mavenVersion>2.0.6</mavenVersion>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.7</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0.2</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
