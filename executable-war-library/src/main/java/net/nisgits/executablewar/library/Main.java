@@ -1,4 +1,4 @@
-package org.apache.maven.plugins.executablewar;
+package net.nisgits.executablewar.library;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

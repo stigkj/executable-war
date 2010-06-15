@@ -1,4 +1,4 @@
-package org.apache.maven.plugin.executablewar;
+package net.nisgits.executablewar.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -124,7 +124,7 @@ public class ExecutableWarMojo extends AbstractMojo {
 				configuration(
 						element(name("archive"),
 								element(name("manifest"),
-										element(name("mainClass"), "org.apache.maven.plugins.executablewar.Main")
+										element(name("mainClass"), "net.nisgits.executablewar.library.Main")
 								)
 						)
 				),

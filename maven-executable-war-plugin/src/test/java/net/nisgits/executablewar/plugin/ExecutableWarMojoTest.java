@@ -1,4 +1,4 @@
-package org.apache.maven.plugin.executablewar;
+package net.nisgits.executablewar.plugin;
 
 import java.io.File;
 
