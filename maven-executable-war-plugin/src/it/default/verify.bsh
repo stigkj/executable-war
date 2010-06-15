@@ -15,7 +15,7 @@ try
     }
 
     String[] expectedPaths = {
-            "org/apache/maven/plugins/executablewar/Main.class",
+            "net/nisgits/executablewar/library/Main.class",
             "winstone.jar",
             "akuma.jar",
             "jna.jar"
@@ -45,7 +45,7 @@ try
     JarFile war = new JarFile( warFile );
 
     String[] includedEntries = {
-            "org/apache/maven/plugins/executablewar/Main.class",
+            "net/nisgits/executablewar/library/Main.class",
             "winstone.jar",
             "akuma.jar",
             "jna.jar"
