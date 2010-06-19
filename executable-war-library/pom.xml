@@ -6,5 +6,5 @@
     <version>0.2-SNAPSHOT</version>
   </parent>
   <artifactId>executable-war-library</artifactId>
-  <name>executable-war-library</name>
+  <name>Library used when creating executable WARs</name>
 </project>
