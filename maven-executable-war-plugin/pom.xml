@@ -143,7 +143,7 @@
     <repository>
       <id>mojo-executor</id>
       <name>Repository for mojo-executor, utility for executing mojos programmatically</name>
-      <url>http://mojo-executor.googlecode.com/svn/repo/org/twdata/maven/mojo-executor/</url>
+      <url>http://twdata-m2-repository.googlecode.com/svn</url>
       <releases>
         <enabled>true</enabled>
       </releases>
