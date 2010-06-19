@@ -3,7 +3,7 @@
   <parent>
     <groupId>net.nisgits.executablewar</groupId>
     <artifactId>executable-war</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
   </parent>
   <artifactId>executable-war-library</artifactId>
   <name>Library used when creating executable WARs</name>
