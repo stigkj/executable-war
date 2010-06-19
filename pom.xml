@@ -4,7 +4,7 @@
 
   <groupId>net.nisgits.executablewar</groupId>
   <artifactId>executable-war</artifactId>
-  <version>0.2-SNAPSHOT</version>
+  <version>0.2</version>
   <packaging>pom</packaging>
 
   <name>Executable WARs</name>
