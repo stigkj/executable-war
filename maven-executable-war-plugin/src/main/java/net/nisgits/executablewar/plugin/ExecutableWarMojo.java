@@ -168,7 +168,7 @@ public class ExecutableWarMojo extends AbstractMojo {
 	private void copyDependenciesTo(File expandedWarDirectory) throws MojoExecutionException {
 		copyArtifactByIdToDirectory("net.java.dev.jna:jna", expandedWarDirectory);
 		copyArtifactByIdToDirectory("com.sun.akuma:akuma", expandedWarDirectory);
-		copyArtifactByIdToDirectory("net.sourceforge.winstone:winstone", expandedWarDirectory);
+		copyArtifactByIdToDirectory("org.jvnet.hudson.winstone:winstone", expandedWarDirectory);
 	}
 
 	private void copyArtifactByIdToDirectory(final String id, File expandedWarDirectory) throws MojoExecutionException {
