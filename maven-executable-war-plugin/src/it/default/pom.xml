@@ -39,7 +39,7 @@
       <plugin>
         <groupId>net.nisgits.executablewar</groupId>
         <artifactId>maven-executable-war-plugin</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.3-SNAPSHOT</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
