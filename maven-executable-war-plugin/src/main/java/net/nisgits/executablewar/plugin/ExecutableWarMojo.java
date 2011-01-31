@@ -37,7 +37,6 @@ import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
 /**
  * Build an executable WAR file.
  *
- * @version $Id: $
  * @goal war
  * @phase package
  * @requiresDependencyResolution runtime
