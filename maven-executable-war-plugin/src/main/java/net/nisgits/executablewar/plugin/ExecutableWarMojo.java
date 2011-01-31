@@ -37,11 +37,11 @@ import static org.twdata.maven.mojoexecutor.MojoExecutor.version;
 /**
  * Build an executable WAR file.
  *
- * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-Jørgensen</a>
  * @version $Id: $
  * @goal war
  * @phase package
  * @requiresDependencyResolution runtime
+ * @author <a href="from.executable-war@nisgits.net">Stig Kleppe-J&oslash;rgensen</a>
  * TODO make a JDK v1.4 version too with that maven plugin
  */
 public class ExecutableWarMojo extends AbstractMojo {

@@ -28,7 +28,7 @@ import java.util.zip.ZipFile;
  * <tt>java -jar &lt;name&gt;.war</tt>.
  *
  * @author Kohsuke Kawaguchi
- * @author Stig Kleppe-Jorgensen
+ * @author Stig Kleppe-J&oslash;rgensen
  * TODO improve class name
  */
 public class Main {
