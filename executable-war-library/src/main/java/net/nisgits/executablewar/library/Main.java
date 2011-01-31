@@ -24,10 +24,11 @@ import java.util.jar.Manifest;
 import java.util.zip.ZipFile;
 
 /**
- * Launcher class for stand-alone execution of Hudson as
- * <tt>java -jar hudson.war</tt>.
+ * Launcher class for stand-alone execution of a web application as
+ * <tt>java -jar &lt;name&gt;.war</tt>.
  *
  * @author Kohsuke Kawaguchi
+ * @author Stig Kleppe-Jorgensen
  * TODO improve class name
  */
 public class Main {
@@ -80,12 +81,8 @@ public class Main {
             }
         }
 
-        // this is so that JFreeChart can work nicely even if we are launched as a daemon
+        // Make sure "everybody" knows we are running without a GUI
         System.setProperty("java.awt.headless","true");
-
-        // tell Hudson that Winstone doesn't support chunked encoding.
-        if(System.getProperty("hudson.diyChunking")==null)
-            System.setProperty("hudson.diyChunking","true");
 
         File me = whoAmI();
         System.out.println("Running from: " + me);
@@ -94,9 +91,8 @@ public class Main {
         // put winstone jar in a file system so that we can load jars from there
         File tmpJar = extractFromJar("/winstone.jar","winstone","jar");
 
-        // clean up any previously extracted copy, since
-        // winstone doesn't do so and that causes problems when newer version of Hudson
-        // is deployed.
+        // clean up any previously extracted copy, since winstone doesn't do so and that causes problems when newer
+        // version of an executable war is deployed.
         File tempFile = File.createTempFile("dummy", "dummy");
         deleteContents(new File(tempFile.getParent(), "winstone/" + me.getName()));
         tempFile.delete();
@@ -110,15 +106,15 @@ public class Main {
         List arguments = new ArrayList(Arrays.asList(args));
         arguments.add(0,"--warfile="+ me.getAbsolutePath());
         if(!hasWebRoot(arguments))
-            // defaults to ~/.hudson/war since many users reported that cron job attempts to clean up
-            // the contents in the temporary directory.
+            // defaults to ~/.execwar/war since temporary directory is typically cleaned up by cron jobs on many
+            // operating systems
             arguments.add("--webroot="+new File(getHomeDir(),"war"));
 
         // override the usage screen
 //        Field usage = launcher.getField("USAGE");
 /*
-        usage.set(null,"Hudson Continuous Integration Engine "+getVersion()+"\n" +
-                "Usage: java -jar hudson.war [--option=value] [--option=value]\n" +
+        usage.set(null,"<name in manifest.mf or name of file> "+getVersion()+"\n" +
+                "Usage: java -jar <exec war>.war [--option=value] [--option=value]\n" +
                 "\n" +
                 "Options:\n" +
                 "   --daemon                 = fork into background and run as daemon (Unix only)\n" +
@@ -200,14 +196,14 @@ public class Main {
     }
 
     /**
-     * Figures out the URL of <tt>hudson.war</tt>.
+     * Figures out the URL of the executable war
      */
     public static File whoAmI() throws IOException, URISyntaxException {
-        // JNLP returns the URL where the jar was originally placed (like http://hudson.dev.java.net/...)
+        // JNLP returns the URL where the jar was originally placed (like http://<web site>/...)
         // not the local cached file. So we need a rather round about approach to get to
         // the local file name.
-        // There is no portable way to find where the locally cached copy
-        // of hudson.war/jar is; JDK 6 is too smart. (See HUDSON-2326.)
+        // There is no portable way to find where the locally cached copy of the executable war; JDK 6 is too smart.
+        // See the Hudson issue HUDSON-2326 for more information.
         try {
 	        URL classFile = Main.class.getClassLoader().getResource(mainClassAsResourceString());
             JarFile jf = ((JarURLConnection) classFile.openConnection()).getJarFile();
@@ -217,7 +213,7 @@ public class Main {
         } catch (Exception x) {
             System.err.println("ZipFile.name trick did not work, using fallback: " + x);
         }
-        File myself = File.createTempFile("hudson", ".jar");
+        File myself = File.createTempFile("execwar", ".jar");
         myself.deleteOnExit();
         InputStream is = Main.class.getProtectionDomain().getCodeSource().getLocation().openStream();
         try {
@@ -256,7 +252,7 @@ public class Main {
             tmp = File.createTempFile(fileName,suffix);
         } catch (IOException e) {
             String tmpdir = System.getProperty("java.io.tmpdir");
-            IOException x = new IOException("Hudson has failed to create a temporary file in " + tmpdir);
+            IOException x = new IOException("Could not create a temporary file in " + tmpdir);
             x.initCause(e);
             throw x;
         }
@@ -287,7 +283,7 @@ public class Main {
     }
 
     /**
-     * Determines the home directory for Hudson.
+     * Determines the home directory for the executable war.
      *
      * People makes configuration mistakes, so we are trying to be nice
      * with those by doing {@link String#trim()}.
@@ -297,11 +293,11 @@ public class Main {
         try {
             InitialContext iniCtxt = new InitialContext();
             Context env = (Context) iniCtxt.lookup("java:comp/env");
-            String value = (String) env.lookup("HUDSON_HOME");
+            String value = (String) env.lookup("EXECWAR_HOME");
             if(value!=null && value.trim().length()>0)
                 return new File(value.trim());
             // look at one more place. See issue #1314
-            value = (String) iniCtxt.lookup("HUDSON_HOME");
+            value = (String) iniCtxt.lookup("EXECWAR_HOME");
             if(value!=null && value.trim().length()>0)
                 return new File(value.trim());
         } catch (NamingException e) {
@@ -309,13 +305,13 @@ public class Main {
         }
 
         // finally check the system property
-        String sysProp = System.getProperty("HUDSON_HOME");
+        String sysProp = System.getProperty("EXECWAR_HOME");
         if(sysProp!=null)
             return new File(sysProp.trim());
 
         // look at the env var next
         try {
-            String env = System.getenv("HUDSON_HOME");
+            String env = System.getenv("EXECWAR_HOME");
             if(env!=null)
             return new File(env.trim()).getAbsoluteFile();
         } catch (Throwable _) {
@@ -323,21 +319,7 @@ public class Main {
             // fall through to the next method
         }
 
-        // otherwise pick a place by ourselves
-
-/* ServletContext not available yet
-        String root = event.getServletContext().getRealPath("/WEB-INF/workspace");
-        if(root!=null) {
-            File ws = new File(root.trim());
-            if(ws.exists())
-                // Hudson <1.42 used to prefer this before ~/.hudson, so
-                // check the existence and if it's there, use it.
-                // otherwise if this is a new installation, prefer ~/.hudson
-                return ws;
-        }
-*/
-
-        // if for some reason we can't put it within the webapp, use home directory.
-        return new File(new File(System.getProperty("user.home")),".hudson");
+        // No home dir specified; just put it in the user's home dir
+        return new File(new File(System.getProperty("user.home")),".execwar");
     }
 }
