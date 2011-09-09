@@ -15,11 +15,15 @@ http://weblogs.java.net/blog/2007/02/11/hudson-became-self-executable
 
 Licensing
 =========
-Apache?
+Licensed under the [MIT License].
+
+Copyright (c) 2011-, Kohsuke Kawaguchi, Sun Microsystems, Inc., and a number of other contributers (see [AUTHORS] file for credit).
 
 
 The Wiki
 ========
 The [wiki][] probably has the answers to any other questions you may have.
 
-[wiki]:http://wiki.github.com/stigkj/executable-war
+[wiki]: http://wiki.github.com/stigkj/executable-war
+[MIT License]: https://github.com/stigkj/executable-war/raw/master/LICENSE
+[AUTHORS]: https://github.com/stigkj/executable-war/raw/master/AUTHORS
